@@ -119,7 +119,7 @@ amm-info@iis.fraunhofer.de
 */
 
 #ifdef __ANDROID__
-#include "log/log.h"
+//#include "log/log.h"
 #endif
 
 #include "lpp_tran.h"
@@ -195,7 +195,7 @@ static void inverseFilteringLevelEmphasis(
              fMultDiv2(FL2FXCONST_DBL(0.09375f), hLppTrans->bwVectorOld[i]);
     }
 
-    if (accu<FL2FXCONST_DBL(0.015625f)>> 1) {
+    if (accu < FL2FXCONST_DBL(0.015625f) >> 1) {
       bwVector[i] = FL2FXCONST_DBL(0.0f);
     } else {
       bwVector[i] = fixMin(accu << 1, FL2FXCONST_DBL(0.99609375f));
@@ -337,7 +337,7 @@ void lppTransposer(
 #ifdef __ANDROID__
   else {
     // Safetynet logging
-    android_errorWriteLog(0x534e4554, "112160868");
+    //    android_errorWriteLog(0x534e4554, "112160868");
   }
 #endif
 
@@ -933,7 +933,7 @@ void lppTransposerHBE(
 #ifdef __ANDROID__
   else {
     // Safetynet logging
-    android_errorWriteLog(0x534e4554, "112160868");
+    //    android_errorWriteLog(0x534e4554, "112160868");
   }
 #endif
 
@@ -1190,9 +1190,8 @@ void lppTransposerHBE(
     } else { /* bw <= 0 */
 
       int descale = fixMin(DFRACT_BITS - 1, (LPC_SCALE_FACTOR + dynamicScale));
-      dynamicScale +=
-          1; /* prevent negativ scale factor due to 'one additional bit
-                headroom' */
+      dynamicScale += 1; /* prevent negativ scale factor due to 'one additional
+                            bit headroom' */
 
       for (i = startSample; i < stopSample; i++) {
         FIXP_DBL accu1, accu2;
